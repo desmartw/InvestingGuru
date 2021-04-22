@@ -5,7 +5,12 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'stock-view/:ticker',
+    loadChildren: () => import('./stock-view/stock-view.module').then( m => m.StockViewPageModule)
   }
+
 ];
 @NgModule({
   imports: [
