@@ -11,7 +11,32 @@
     <ion-toolbar>
       <ion-title size="large">Search</ion-title>
     </ion-toolbar>
+    <ion-toolbar>
+       <ion-searchbar
+         [ngModel]="search" (ngModelChange)="searchFunc($event)" class="search-box" placeholder="Search stock..." title="Search for stock information" >
+      </ion-searchbar>
+     </ion-toolbar>
   </ion-header>
+  <ion-content>
 
-  <app-explore-container name="Tab 4 page"></app-explore-container>
+
+  <div *ngIf="searchTickers.length && show" (click)="clear() && hide()" class="stock-search-result">
+    <div *ngFor="let stock of searchTickers" class="search-result-item">
+      <div class="search-result-image">
+        <ion-thumbnail>
+            <img [src]="getStockImage(stock.symbol)" [alt]="stock.name" />
+        </ion-thumbnail>
+
+      </div>
+
+      <div class="search-result-name">
+        <strong>{{ stock.symbol }}</strong> |
+        <strong>{{ stock.name }}</strong> |
+        <strong>{{ stock.stockExchange }}</strong>
+      </div>
+    </div>
+  </div>
+
+  </ion-content>
+
 </ion-content>

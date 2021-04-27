@@ -25,18 +25,18 @@ export class StockViewPage implements OnInit {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    
+
     const ticker = this.route.snapshot.paramMap.get('ticker');
     this.url = "https://financialmodelingprep.com/api/v3/profile/" + ticker + "?apikey=11eadd2a7d24010d2e34e43730ebe2cc";
     this.http.get<any>(this.url).subscribe(data => {
-    	this.stock.ticker = data[0].symbol
+    	this.stock.ticker = data[0].symbol // says undefined
     	console.log(this.stock)
       console.log(data[0].symbol)
-    
+
       this.stockData = [data];
-     
+
     })
-   
+
   }
 
 }

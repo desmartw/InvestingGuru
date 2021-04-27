@@ -44,7 +44,7 @@ export class Tab1Page implements OnInit {
 
   url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=11eadd2a7d24010d2e34e43730ebe2cc";
   financialStatement: any=[]
- 
+
 ;
 
   private stocks: Observable<Stock[]>;
@@ -62,10 +62,10 @@ export class Tab1Page implements OnInit {
 
     this.http.get<any>(this.url).subscribe(data => {
       console.log(data[0].symbol)
-      console.log(data.symbol)
       this.financialStatement = [data];
       console.log(this.financialStatement[0])
-     
+      console.log(data);
+
     })
   }
 
@@ -78,6 +78,10 @@ export class Tab1Page implements OnInit {
       console.log("User not logged in, dont have login function yet.");
     }
     //this.stock.uid = this.user.uid;
+    let quote = this.getStockQuote(this.stock.ticker);
+
+    console.log(quote);
+
     this.fbService.addStock(this.stock).then((doc) => {
       console.log(doc);
       this.router.navigateByUrl('/');
@@ -114,7 +118,9 @@ export class Tab1Page implements OnInit {
 
   }
 
-
+  getStockQuote (symbol) {
+    return `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`
+  }
 
   addStockToWatchlist() {
     this.fbService.addStock(this.stock).then(() => {
@@ -123,5 +129,7 @@ export class Tab1Page implements OnInit {
 
     });
   }
-
+  viewStock(stock){
+    this.router.navigate(['/stock-view/'+ stock.ticker]);
+  }
 }
