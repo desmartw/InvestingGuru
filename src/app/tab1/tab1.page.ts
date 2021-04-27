@@ -22,17 +22,11 @@ export class Tab1Page implements OnInit {
   timeout = null;
   show = false;
   searchTickers = [];
+  qI:any;
+  stockQuote = [];
 
-  open() {
-      this.show = true
-  }
-   hide() {
-    this.show = false
-  }
-  clear() {
-    this.search = ''
-  }
-
+  private stocks: Observable<Stock[]>;
+  user:any;
   stock: Stock = {
     uid: '',
     ticker: '',
@@ -42,14 +36,19 @@ export class Tab1Page implements OnInit {
     dateAdded: new Date().getTime()
   };
 
+  open() {
+      this.show = true;
+  }
+   hide() {
+    this.show = false;
+  }
+  clear() {
+    this.search = '';
+  }
+
   url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=11eadd2a7d24010d2e34e43730ebe2cc";
-  financialStatement: any=[]
+  financialStatement: any=[];
 
-;
-
-  private stocks: Observable<Stock[]>;
-
-  user:any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -61,9 +60,9 @@ export class Tab1Page implements OnInit {
   ) {
 
     this.http.get<any>(this.url).subscribe(data => {
-      console.log(data[0].symbol)
-      this.financialStatement = [data];
-      console.log(this.financialStatement[0])
+      console.log(data[0].symbol);
+      //this.financialStatement = [data];
+      //console.log(this.financialStatement[0])
       console.log(data);
 
     })
@@ -72,16 +71,40 @@ export class Tab1Page implements OnInit {
   ngOnInit(): void {
     this.stocks = this.stockService.getStocks();
   }
+
+  async setFinancialStatment() {
+    this.http.get<any>(this.url).subscribe(data => {
+      console.log(data[0].symbol);
+      this.financialStatement = [data];
+      console.log(this.financialStatement[0])
+      console.log(data);
+  })
+}
+
+
+  async getStockQuote (symbol) {
+    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+
+    this.http.get(url).subscribe(data => {
+      console.log(data);
+      this.financialStatement = data;
+      // this.stockQuote = this.qI.list;
+      console.log(this.financialStatement[0]); // returns correct data
+    })
+  }
+
+
   addStock () {
-    if(this.user == null) {
-      //make sure logged in
-      console.log("User not logged in, dont have login function yet.");
-    }
-    //this.stock.uid = this.user.uid;
-    let quote = this.getStockQuote(this.stock.ticker);
+    var symbol = this.stock.ticker;
+    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+    this.getStockQuote(symbol);
+    // need to do async call to wait here until stock info is recieved
+    // this.financialStatement[0] is correct data but cant figure out how to wait properly
 
-    console.log(quote);
+    console.log(this.financialStatement[0]);
 
+    // add stock to firebase
+    //need to populate with data first
     this.fbService.addStock(this.stock).then((doc) => {
       console.log(doc);
       this.router.navigateByUrl('/');
@@ -98,7 +121,7 @@ export class Tab1Page implements OnInit {
     this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=11eadd2a7d24010d2e34e43730ebe2cc`).subscribe(data =>{
       console.log(data)
       this.searchTickers = data;
-    })
+    });
   }
 
   searchFunc(val) {
@@ -115,20 +138,8 @@ export class Tab1Page implements OnInit {
     this.clear();
     this.hide();
   }
-
   }
 
-  getStockQuote (symbol) {
-    return `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`
-  }
-
-  addStockToWatchlist() {
-    this.fbService.addStock(this.stock).then(() => {
-      this.router.navigateByUrl('/');
-    }, err => {
-
-    });
-  }
   viewStock(stock){
     this.router.navigate(['/stock-view/'+ stock.ticker]);
   }
