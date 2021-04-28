@@ -13,6 +13,10 @@ export const environment = {
     appId: "1:360373875365:web:918e9ec6b9daf19e8e934c",
     measurementId: "G-9X1Q9F17B2"
 },
+  newsAPI: {
+    apiUrl: 'https://newsapi.org/v2/',
+    apiKey: '695abe244af64452908091c695496b2c'
+  },
 };
 
 /*

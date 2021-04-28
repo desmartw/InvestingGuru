@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'stock-view/:ticker',
     loadChildren: () => import('./stock-view/stock-view.module').then( m => m.StockViewPageModule)
+  },
+  {
+    path: 'view-news',
+    loadChildren: () => import('./view-news/view-news.module').then( m => m.ViewNewsPageModule)
   }
 
 ];

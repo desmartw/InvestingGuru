@@ -94,10 +94,10 @@ export class Tab1Page implements OnInit {
   }
 
 
-  addStock () {
+   async addStock () {
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
-    this.getStockQuote(symbol);
+    await this.getStockQuote(symbol);
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
 
