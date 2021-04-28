@@ -4,6 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../services/news.service';
 import { Router } from '@angular/router';
 
+import { Platform } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
+
 
 @Component({
   selector: 'app-tab3',
@@ -13,7 +19,10 @@ import { Router } from '@angular/router';
 export class Tab3Page implements OnInit {
   data: any;
   page = 1;
-  constructor(private newsService: NewsService, private router: Router) {}
+  constructor(private newsService: NewsService, private router: Router,
+     public platform: Platform, public navCtrl: NavController,
+     public iab: InAppBrowser,
+   ) {}
 
   ngOnInit() {
     this.newsService
@@ -62,4 +71,5 @@ export class Tab3Page implements OnInit {
        console.log(this.data);
      });
  }
+
 }

@@ -13,10 +13,13 @@
 
     <ion-card-content>
       <ion-card-title>{{article.title}}</ion-card-title>
+      <h3> {{article.publishedAt}} </h3>
 
       <p>{{article.description}}</p>
     </ion-card-content>
   </ion-card>
+
+  <!-- <button ion-button (click)= "viewFullArticle(${{article.url}})" color="light">Go to full article</button> -->
 
   <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
     <ion-infinite-scroll-content loadingSpinner="bubble" loadingText="load news.."></ion-infinite-scroll-content>
