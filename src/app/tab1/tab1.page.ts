@@ -7,6 +7,7 @@ import { StockService } from '../stock.service';
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import 'firebase/auth'
 import firebase from 'firebase/app'
 
@@ -26,6 +27,9 @@ export class Tab1Page implements OnInit {
   searchTickers = [];
   qI:any;
   stockQuote = [];
+  
+  stocksToShow:Stock[];
+  stocks2Show;
 
 
 
@@ -61,7 +65,9 @@ export class Tab1Page implements OnInit {
     private router: Router,
     public stockService: StockService,
     private http:HttpClient,
+    private afs: AngularFirestore
   ) {
+
 
     this.http.get<any>(this.url).subscribe(data => {
       console.log(data[0].symbol);
@@ -72,15 +78,37 @@ export class Tab1Page implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
+ 
     var self = this
     if(!firebase.auth().currentUser){
       console.log("here")
       // self.router.navigate(["/login"])
     }
 
-    this.stocks = this.stockService.getStocks();
-  }
+    var temp = []
+     var temp2 = []
+   var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
+userDeviceRef.get().toPromise().then(function(doc){
+    if (doc.exists) {
+        console.log("Document data:", doc.data())
+        console.log("document customdata foo: " + doc.data());
+        self.stocks2Show = doc.data()
+        console.log(self.stocks2Show.watchlist)
+        self.stocks2Show = self.stocks2Show.watchlist
+    }
+})
+
+     //this.stocks2Show = temp;
+     //this.stocksToShow = temp2;
+     
+  
+      
+
+    //this.stocks = this.stockService.getStocks();
+}
+  
 
   async setFinancialStatment() {
     this.http.get<any>(this.url).subscribe(data => {

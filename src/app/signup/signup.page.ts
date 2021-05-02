@@ -34,7 +34,7 @@ export class SignupPage implements OnInit {
     return await Promise.all([createProfile])
   }*/
 
-  signup() {
+  async signup() {
   	//firebase.initializeApp(config);
   	
   	console.log(this.user.email + "  " + this.user.password)
@@ -67,6 +67,14 @@ export class SignupPage implements OnInit {
 
   		})
   	}
+
+    const createProfile : Promise<void> =this.db.collection('Users').doc(firebase.auth().currentUser?.uid).set({
+      watchlist:[],
+      simlist:[]
+    })
+   
+
+    return await Promise.all([createProfile])
       //this.uploadDataToFirebase()
   }
 
