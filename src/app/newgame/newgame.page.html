@@ -1,0 +1,22 @@
+
+<ion-header no-lines>
+	<ion-toolbar no-lines>
+<ion-title no-lines id = "title">New Simulator</ion-title>
+</ion-toolbar>
+<ion-button class = "submit-btn" [routerLink]="'/tabs/simulator'">Back</ion-button>
+</ion-header>
+<ion-content id = 'form' padding>
+	<ion-item class = "roundedInput" id = 'username'>
+		
+		<ion-input placeholder = "Starting amount" type = "text" [(ngModel)]="user.amount" required></ion-input>
+	</ion-item>
+	
+	<ion-item>
+	<ion-grid>
+		<ion-button class = "submit-btn" [routerLink]="'/tabs/simulator'" (click) = "newGame()">Restart</ion-button>
+	</ion-grid>
+</ion-item>
+	
+
+
+</ion-content>

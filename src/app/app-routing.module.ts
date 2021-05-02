@@ -24,6 +24,10 @@ const routes: Routes = [
   {
     path: 'simulator',
     loadChildren: () => import('./simulator/simulator.module').then( m => m.SimulatorPageModule)
+  },
+  {
+    path: 'newgame',
+    loadChildren: () => import('./newgame/newgame.module').then( m => m.NewgamePageModule)
   }
 
 

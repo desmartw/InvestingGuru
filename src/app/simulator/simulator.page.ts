@@ -19,6 +19,9 @@ import firebase from 'firebase/app'
 export class SimulatorPage implements OnInit {
 	 simlist;
 	 simcost;
+	 simBalance;
+	 total = 0;
+	 test = 90;
 search = '';
   timeout = null;
   show = false;
@@ -85,18 +88,32 @@ search = '';
       // self.router.navigate(["/login"])
     }
 
+
+
+
     var temp = []
      var temp2 = []
    var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
-userDeviceRef.get().toPromise().then(function(doc){
+await userDeviceRef.get().toPromise().then(async function(doc){
     if (doc.exists) {
         console.log("Document data:", doc.data())
         console.log("document customdata foo: " + doc.data());
-        self.simlist = doc.data()
-        self.simcost = self.simlist.simcost
-        self.simlist = self.simlist.simlist
+        self.simlist = await doc.data()
+        self.simBalance = await self.simlist.simbalance
+        
+        self.simcost = await self.simlist.simcost
+        self.simlist = await self.simlist.simlist
     }
+    console.log(self.simBalance)
+    console.log(self.simcost)
 })
+
+this.simlist.forEach(function(stock){
+  		self.total+=stock.price
+
+  	})
+console.log(self.total)
+
 
      //this.stocks2Show = temp;
      //this.stocksToShow = temp2;
@@ -134,7 +151,7 @@ userDeviceRef.get().toPromise().then(function(doc){
 
 
 
-  async addStockToSim (s:string, price:number) {
+  async addStockToSim (s:string) {
    
     var symbol = s
     this.stock.ticker = s;
@@ -153,22 +170,21 @@ userDeviceRef.get().toPromise().then(function(doc){
     await this.getStockQuote(symbol);
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
+   console.log(this.simcost)
+  
 const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
     updateRef.update({
       simlist: firebase.firestore.FieldValue.arrayUnion(this.stock),
-      simcost:this.simcost+this.stock.price
+      simcost:this.simcost+this.stock.price,
+      simbalance:this.simBalance - parseFloat(this.stock.price)
     });
+   this.simBalance = this.simBalance- parseFloat(this.stock.price)
    
    this.simcost += this.stock.price
+   
 
-    // add stock to firebase
-    //need to populate with data first
-   /* this.fbService.addStockToSim(this.stock).then((doc) => {
-      console.log(doc);
-    
-    }, err => {
-    });*/
     })
+
   }
 
 
@@ -211,4 +227,14 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
    
 
   }
+
+  getTotal(){
+  	var running = 0;
+  	this.simlist.forEach(function(stock){
+  		running=+stock.price
+
+  	})
+  }
+
+
 }
