@@ -6,6 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -43,6 +44,7 @@ import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http'
     HttpClient,
     InAppBrowser,
     HttpClientModule,
+    FormBuilder,
 
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -1,0 +1,43 @@
+ion-content, ion-header{
+
+    --ion-background-color:#32a852;
+}
+
+#form{
+	margin-top: 50%;
+}
+
+ion-input{
+--background: white;
+
+}
+
+.roundedInput {
+
+	text-align:center;
+  border-radius: 20px;
+  --border-width: 1px;
+  --box-shadow: 2px gray;
+  --highlight-height: 0;
+  --background: white;
+  --color:black;
+ }
+
+ #username{
+ 	margin-top: 50%;
+ }
+
+ .submit-btn{
+ 	margin-top:10%;
+ 	border-radius: 20px;
+ 	--background: white;
+ 	color: #32a852;
+ }
+
+ #title{
+ 	text-align: center;
+ 	 --ion-background-color:#32a852;
+ 	 color:white;
+
+
+ }

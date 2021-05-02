@@ -7,6 +7,8 @@ import { StockService } from '../stock.service';
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import 'firebase/auth'
+import firebase from 'firebase/app'
 
 
 
@@ -24,6 +26,8 @@ export class Tab1Page implements OnInit {
   searchTickers = [];
   qI:any;
   stockQuote = [];
+
+
 
   private stocks: Observable<Stock[]>;
   user:any;
@@ -69,6 +73,12 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit(): void {
+    var self = this
+    if(!firebase.auth().currentUser){
+      console.log("here")
+     // self.router.navigate(["/login"])
+    }
+
     this.stocks = this.stockService.getStocks();
   }
 
@@ -95,6 +105,26 @@ export class Tab1Page implements OnInit {
 
 
    async addStock () {
+    var symbol = this.stock.ticker;
+    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+    await this.getStockQuote(symbol);
+    // need to do async call to wait here until stock info is recieved
+    // this.financialStatement[0] is correct data but cant figure out how to wait properly
+
+    console.log(this.financialStatement[0]);
+
+    // add stock to firebase
+    //need to populate with data first
+    this.fbService.addStock(this.stock).then((doc) => {
+      console.log(doc);
+      this.router.navigateByUrl('/');
+    }, err => {
+    });
+  }
+
+  async addStock2 (s:string) {
+    console.log(s)
+    this.stock.ticker = s;
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
     await this.getStockQuote(symbol);

@@ -1,0 +1,29 @@
+
+<ion-header no-lines>
+	<ion-toolbar no-lines>
+<ion-title no-lines id = "title">Investing Guru</ion-title>
+</ion-toolbar>
+</ion-header>
+<ion-content id = 'form' padding>
+	<ion-item class = "roundedInput" id = 'username'>
+		
+		<ion-input placeholder = "Email" type = "text" [(ngModel)]="user.email" required></ion-input>
+	</ion-item>
+	<br/>
+	<ion-item class = 'roundedInput' id ="password">
+		
+		<ion-input placeholder = "Password" type = "text" [(ngModel)]="user.password" required></ion-input>
+	</ion-item>
+	<br/>
+	
+	
+	<ion-button class = "submit-btn" expand="block" type = "submit" (click)="signup()">Sign Up</ion-button>
+	<ion-item>
+	<ion-grid>
+		<ion-button class = "submit-btn" (click) = "loginGoogle()">Google Login</ion-button>
+	</ion-grid>
+</ion-item>
+	
+
+
+</ion-content>

@@ -29,7 +29,33 @@
     </ion-content>
 </ion-content>
 
-<div style="position: absolute; bottom: 0px; width: 100%">
+
+<div (click)="open()" class="stock-search-component-small">
+  <div class="stock-search">
+    <input [ngModel]="search"
+ (ngModelChange)="searchFunc($event)" class="search-box" placeholder="Search stock..." title="Search for stock information" />
+
+    <div class="icon-search-wrapper">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+
+  <div *ngIf="searchTickers.length && show" (click)="clear() && hide()" class="stock-search-result">
+    <div *ngFor="let stock of searchTickers" class="search-result-item">
+      <div class="search-result-image">
+        <img [src]="getStockImage(stock.symbol)" [alt]="stock.name" />
+      </div>
+
+      <div (click)="addStock2(stock.symbol)" class="search-result-name">
+        <strong>{{ stock.symbol }}</strong> |
+        <strong>{{ stock.name }}</strong> |
+        <strong>{{ stock.stockExchange }}</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="position: relative; bottom: 0px; width: 100%">
   <ion-list>
     <ion-item>
       <ion-input placeholder="Enter Ticker" [(ngModel)]="stock.ticker"></ion-input>
