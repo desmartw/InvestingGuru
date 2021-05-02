@@ -63,7 +63,7 @@ export class SignupPage implements OnInit {
         
       
   			console.log("finished creating account")
-  			//self.router.navigate(["/tabs/tab1"])
+  			self.router.navigate(["/tabs/tab1"])
 
   		})
   	}

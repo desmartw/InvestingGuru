@@ -76,7 +76,7 @@ export class Tab1Page implements OnInit {
     var self = this
     if(!firebase.auth().currentUser){
       console.log("here")
-     // self.router.navigate(["/login"])
+      // self.router.navigate(["/login"])
     }
 
     this.stocks = this.stockService.getStocks();
@@ -99,9 +99,11 @@ export class Tab1Page implements OnInit {
       console.log(data);
       this.financialStatement = data;
       // this.stockQuote = this.qI.list;
+      console.log(data[0].price)
       console.log(this.financialStatement[0]); // returns correct data
     })
   }
+
 
 
    async addStock () {
@@ -123,15 +125,26 @@ export class Tab1Page implements OnInit {
   }
 
   async addStock2 (s:string) {
-    console.log(s)
+   
+    var symbol = s
     this.stock.ticker = s;
+    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+    await this.http.get(url).subscribe(async data => {
+     
+      this.stock.price= await data[0].price
+      var t = await data[0].price
+      console.log(this.stock.price)
+      console.log(await data[0].price)
+       // returns correct data
+    
+    console.log(await this.stock.price)
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
     await this.getStockQuote(symbol);
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
 
-    console.log(this.financialStatement[0]);
+   
 
     // add stock to firebase
     //need to populate with data first
@@ -140,6 +153,7 @@ export class Tab1Page implements OnInit {
       this.router.navigateByUrl('/');
     }, err => {
     });
+    })
   }
 
   getStockImage(symbol) {
@@ -172,5 +186,13 @@ export class Tab1Page implements OnInit {
 
   viewStock(stock){
     this.router.navigate(['/stock-view/'+ stock.ticker]);
+  }
+
+  removeStock(id:string){
+    console.log("removed")
+   
+      this.fbService.deleteStock(id)
+   
+
   }
 }

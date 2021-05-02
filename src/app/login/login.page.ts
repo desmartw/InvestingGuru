@@ -70,8 +70,9 @@ docRef.get().toPromise().then((doc) => {
 
   login(email:string, password:string) {
   	//console.log(item.email+"  "+item.password)
+    console.log(email)
   	console.log("signin ...");
-  this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
+  this.afAuth.signInWithEmailAndPassword(this.user.email, this.user.password).then(user => {
 		// navigate to user profile
 		console.log(user.user.email, user.user.uid);
 

@@ -56,6 +56,7 @@ export class FirebaseService {
     // var user1 = firebase.auth().currentUser;
     // console.log(user1.uid);
     //we can also add uid to the note here.
+    console.log(stock)
     return this.stockCollection.add(stock);
   }
 
@@ -65,6 +66,9 @@ updateStock(stock: Stock): Promise<void> {
 }
 
 deleteStock(id: string): Promise<void> {
+  console.log(id)
   return this.stockCollection.doc(id).delete();
 }
+
+
 }
