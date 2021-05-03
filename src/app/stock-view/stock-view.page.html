@@ -7,10 +7,11 @@
 
 <ion-content>
   <ion-list>
-    <ion-img src="getStockImage(this.stock.ticker)"> </ion-img>
+    <ion-img [src]="getStockImage(this.stock.ticker)"> </ion-img>
     <h1> {{this.stock.name}} </h1>
     <h3> {{this.stock.exchange}} </h3>
-    <h1> ${{this.stock.price}}  %{{this.stock.move}}</h1>
+    <h1> ${{this.stock.price}}  </h1>
+    <h1> % change today: {{this.stock.move}} </h1>
     <h1>Average Volume: {{this.stock.averageVol}} </h1>
     <h1>Todays Volume: {{this.stock.dailyVol}} </h1>
     <h1> Market Cap: ${{this.stock.marketCap}} </h1>

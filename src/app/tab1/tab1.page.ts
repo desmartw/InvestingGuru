@@ -29,7 +29,7 @@ export class Tab1Page implements OnInit {
   stockQuote = [];
 
   stocksToShow:Stock[];
-  
+
   stocks2Show;
 
 
@@ -227,6 +227,12 @@ userDeviceRef.get().toPromise().then(function(doc){
 
   getStockImage(symbol) {
     return `https://financialmodellingprep.com/images-New-jpg/${symbol.toUpperCase()}.jpg`
+  }
+
+  updateWatchlist(watchlist) {
+    watchlist.watchlist.forEach(stock => {
+      this.fbService.updateStock(stock);
+    });
   }
 
   fetchResults(symbol, count) {
