@@ -13,6 +13,7 @@ import { StockService } from '../stock.service';
   styleUrls: ['./stock-view.page.scss'],
 })
 export class StockViewPage implements OnInit {
+  isPositive = true;
 	stock: Stock = {
 		uid:'',
     	ticker: '',
@@ -27,7 +28,7 @@ export class StockViewPage implements OnInit {
       averageVol: '',
       dailyVol: '',
       marketCap: '',
-      
+
   };
 	url = '';
 	stockData:any = [];
@@ -41,6 +42,9 @@ export class StockViewPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+  getStockImage(symbol) {
+    return `https://financialmodellingprep.com/images-New-jpg/${symbol.toUpperCase()}.jpg`
   }
 
 
@@ -63,6 +67,10 @@ export class StockViewPage implements OnInit {
         this.stock.averageVol  = await data[0].avgVolume;
         this.stock.dailyVol  = await data[0].volume;
         this.stock.marketCap  = await data[0].marketCap;
+
+        if(parseInt(this.stock.move) < 0 ) {
+          this.isPositive = false;
+        }
 
       	console.log(this.stock)
         console.log(data[0].symbol)
