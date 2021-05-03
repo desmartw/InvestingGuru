@@ -20,7 +20,7 @@ export interface Stock {
     price: string;
     // date added is when user added stock to watchlist
     dateAdded: any;
-<<<<<<< HEAD
+    quantity:any;
     name:string;
     yearHigh:string;
     yearLow: string;
@@ -28,9 +28,6 @@ export interface Stock {
     averageVol:string;
     dailyVol:string;
     marketCap:string;
-=======
-    quantity:any;
->>>>>>> 06016717a036fa54b25371cb0d749ab8ae4d7b43
   }
 
   @Injectable({

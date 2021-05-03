@@ -42,7 +42,14 @@ export class Tab1Page implements OnInit {
     move:'',
     id: '',
     dateAdded: new Date().getTime(),
-    quantity:''
+    quantity:'',
+    name:'',
+    yearHigh:'',
+    yearLow: '',
+    exchange: '',
+    averageVol: '',
+    dailyVol: '',
+    marketCap: '',
   };
 
   open() {

@@ -13,30 +13,21 @@ import { StockService } from '../stock.service';
   styleUrls: ['./stock-view.page.scss'],
 })
 export class StockViewPage implements OnInit {
-<<<<<<< HEAD
-  stock: Stock = {
-    uid:'',
-    ticker: '',
-    price: '',
-    move: '',
-    dateAdded: new Date().getTime(),
-    name: '',
-    yearHigh: '',
-    yearLow: '',
-    exchange: '',
-    averageVol: '',
-    dailyVol: '' ,
-    marketCap:  '',
-
-=======
 	stock: Stock = {
 		uid:'',
     	ticker: '',
     	price: '',
     	move: '',
     	dateAdded: '',
-      quantity:''
->>>>>>> 06016717a036fa54b25371cb0d749ab8ae4d7b43
+      quantity:'',
+      name:'',
+      yearHigh:'',
+      yearLow: '',
+      exchange: '',
+      averageVol: '',
+      dailyVol: '',
+      marketCap: '',
+      
   };
 	url = '';
 	stockData:any = [];

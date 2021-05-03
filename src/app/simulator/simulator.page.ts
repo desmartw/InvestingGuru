@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
 // import {Stock} from '../modal/Stock';
 import { StockService } from '../stock.service';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/';
 
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
@@ -48,7 +48,14 @@ search = '';
     move:'',
     id: '',
     dateAdded: new Date().getTime(),
-    quantity:''
+    quantity:'',
+    name:'',
+    yearHigh:'',
+    yearLow: '',
+    exchange: '',
+    averageVol: '',
+    dailyVol: '',
+    marketCap: '',
   };
 
   open() {
