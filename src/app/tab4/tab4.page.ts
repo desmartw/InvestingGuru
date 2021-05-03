@@ -45,7 +45,7 @@ export class Tab4Page implements OnInit {
     quantity: ''
   };
 
-  url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=11eadd2a7d24010d2e34e43730ebe2cc";
+  url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=08931942e38ee3d90b82154c5b6d50a6";
   financialStatement: any=[];
 
 
@@ -76,7 +76,7 @@ export class Tab4Page implements OnInit {
 
   fetchResults(symbol, count) {
     if (!symbol) this.hide();
-    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=11eadd2a7d24010d2e34e43730ebe2cc`).subscribe(data =>{
+    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=08931942e38ee3d90b82154c5b6d50a6`).subscribe(data =>{
       console.log(data)
       this.searchTickers = data;
     })

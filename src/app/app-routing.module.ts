@@ -28,6 +28,10 @@ const routes: Routes = [
   {
     path: 'newgame',
     loadChildren: () => import('./newgame/newgame.module').then( m => m.NewgamePageModule)
+  },
+  {
+    path: 'leader-board',
+    loadChildren: () => import('./leader-board/leader-board.module').then( m => m.LeaderBoardPageModule)
   }
 
 

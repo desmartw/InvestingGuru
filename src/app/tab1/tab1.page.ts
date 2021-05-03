@@ -55,7 +55,7 @@ export class Tab1Page implements OnInit {
     this.search = '';
   }
 
-  url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=11eadd2a7d24010d2e34e43730ebe2cc";
+  url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=08931942e38ee3d90b82154c5b6d50a6";
   financialStatement: any=[];
 
 
@@ -130,7 +130,7 @@ userDeviceRef.get().toPromise().then(function(doc){
 
 
   async getStockQuote (symbol) {
-    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
 
     this.http.get(url).subscribe(data => {
       console.log(data);
@@ -145,7 +145,7 @@ userDeviceRef.get().toPromise().then(function(doc){
 
    async addStock () {
     var symbol = this.stock.ticker;
-    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
     await this.getStockQuote(symbol);
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
@@ -165,7 +165,7 @@ userDeviceRef.get().toPromise().then(function(doc){
    
     var symbol = s
     this.stock.ticker = s;
-    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
     await this.http.get(url).subscribe(async data => {
      
       this.stock.price= await data[0].price
@@ -176,7 +176,7 @@ userDeviceRef.get().toPromise().then(function(doc){
     
     console.log(await this.stock.price)
     var symbol = this.stock.ticker;
-    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
+    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
     await this.getStockQuote(symbol);
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
@@ -199,7 +199,7 @@ userDeviceRef.get().toPromise().then(function(doc){
 
   fetchResults(symbol, count) {
     if (!symbol) this.hide();
-    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=11eadd2a7d24010d2e34e43730ebe2cc`).subscribe(data =>{
+    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=08931942e38ee3d90b82154c5b6d50a6`).subscribe(data =>{
       console.log(data)
       this.searchTickers = data;
     });
