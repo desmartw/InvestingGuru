@@ -20,6 +20,8 @@ import firebase from 'firebase/app'
 })
 export class SimulatorPage implements OnInit {
 	 simlist;
+	 truncBalance;
+	 truncCost;
 	 dailyMove;
 	 simcost;
 	 simBalance;
@@ -97,16 +99,30 @@ search = '';
     var temp = []
      var temp2 = []
 
+
+        const citiesRef = firebase.firestore().collection('Users');
+        const snapshot = await citiesRef.get();
+        snapshot.forEach((doc) => {
+          temp.push(doc.data().simbalance);
+        });
+
+        console.log(temp)
+       
+      
+
      firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
     .onSnapshot(async (doc) => {
     	self.simlist = await doc.data()
         self.simBalance = await self.simlist.simbalance
+        this.truncBalance = await self.simlist.simbalance.toFixed(2)
         
         self.simcost = await self.simlist.simcost
+        self.truncCost = await self.simlist.simcost.toFixed(2)
 
         self.simlist = await self.simlist.simlist
         
     });
+
   /* var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
 await userDeviceRef.get().toPromise().then(async function(doc){
     if (doc.exists) {
@@ -123,7 +139,7 @@ await userDeviceRef.get().toPromise().then(async function(doc){
     console.log(self.simcost)
 })*/
 
-this.simlist.forEach(function(stock){
+await self.simlist.forEach(function(stock){
   		self.total+=stock.price
   		self.dailyMove += stock.move;
 
@@ -163,6 +179,7 @@ this.simlist.forEach(function(stock){
 
 
   async addStockToSim (s:string) {
+
    	var self = this
     var symbol = s
     this.stock.ticker = s;
@@ -170,6 +187,7 @@ this.simlist.forEach(function(stock){
     await this.http.get(url).subscribe(async data => {
      
       this.stock.price= await data[0].price
+      if(this.simBalance>=this.stock.price){
       var t = await data[0].price
       console.log(this.stock.price)
       console.log(await data[0].price)
@@ -225,8 +243,10 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
    this.simcost += this.stock.price
 
    }
+}
 
     })
+
 
   }
 
@@ -263,10 +283,30 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
     this.router.navigate(['/stock-view/'+ stock.ticker]);
   }
 
-  sellStock(stock:string){
+  sellStock(stock:Stock){
+  	var self = this
+
     console.log("removed")
    
-      this.fbService.sell(stock)
+      //this.fbService.sell(stock)
+      var index = this.simlist.findIndex(i => stock.ticker === i.ticker);
+      //var tempBalance = this.simBalance + parseInt(this.simlist[index].quantity)*parseFloat(this.simlist[index].price)
+      var tempBalance = this.simBalance + stock.price
+      var tempQuantity = parseInt(this.simlist[index].quantity) -1
+
+      //this.simlist.splice(index, 1)
+
+      if(tempQuantity>0){
+      	self.simlist[index].quantity = tempQuantity
+
+      const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
+    updateRef.update({
+      simlist: self.simlist,
+      simcost:self.simcost - parseFloat(stock.price),
+      
+      simbalance:tempBalance
+    });
+}
    
 
   }
@@ -277,6 +317,10 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
   		running=+stock.price
 
   	})
+  }
+
+  goToBoard(){
+  	
   }
 
 

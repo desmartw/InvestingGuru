@@ -109,9 +109,11 @@ deleteStock(id: string): Promise<void> {
 sell(id:string) {
   firebase.firestore().collection('Users').doc(firebase.auth().currentUser!.uid).get().then(document => {
     if(document.exists) {
+      if(document.data().quantity==1) {
       this.afs.collection('Users').doc(firebase.auth().currentUser!.uid).update({
         simlist: firebase.firestore.FieldValue.arrayRemove(id)
       })
+    }
     }
   })
 
