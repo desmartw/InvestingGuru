@@ -41,7 +41,8 @@ export class Tab4Page implements OnInit {
     price: '',
     move:'',
     id: '',
-    dateAdded: new Date().getTime()
+    dateAdded: new Date().getTime(),
+    quantity: ''
   };
 
   url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=11eadd2a7d24010d2e34e43730ebe2cc";

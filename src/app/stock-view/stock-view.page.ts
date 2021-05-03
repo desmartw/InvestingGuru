@@ -16,7 +16,8 @@ export class StockViewPage implements OnInit {
     	ticker: '',
     	price: '',
     	move: '',
-    	dateAdded: ''
+    	dateAdded: '',
+      quantity:''
   };
 	url = '';
 	stockData:any = [];

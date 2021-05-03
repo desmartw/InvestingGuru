@@ -9,4 +9,6 @@ export interface Stock {
   price: string;
   // date added is when user added stock to watchlist 
   dateAdded: any;
+  // quantity is the amount of stock owned
+  quantity: string;
 }
