@@ -12,6 +12,22 @@
       <ion-title size="large">Browse</ion-title>
     </ion-toolbar>
   </ion-header>
+  <!-- <ion-item *ngFor="let stock of (browseList)" (click)="viewStock(stock)">
+        <ion-label>{{stock}}</ion-label>
+  </ion-item> -->
+  <ion-content>
+    <ion-card *ngFor="let stock of browseList" (click)="viewStock(stock)">
+      <ion-img [src]="getStockImage(stock)"></ion-img>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+      <ion-card-content>
+        <ion-card-title>{{stock}}</ion-card-title>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
 </ion-content>
+
+<div>
+
+
+</div>
