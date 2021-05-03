@@ -29,7 +29,7 @@
 
       </div>
 
-      <div class="search-result-name">
+      <div class="search-result-name" (click)="viewStock(stock)">
         <strong>{{ stock.symbol }}</strong> |
         <strong>{{ stock.name }}</strong> |
         <strong>{{ stock.stockExchange }}</strong>

@@ -28,7 +28,7 @@ search = '';
   searchTickers = [];
   qI:any;
   stockQuote = [];
-  
+
   stocksToShow:Stock[];
   stocks2Show;
 
@@ -42,7 +42,14 @@ search = '';
     price: '',
     move:'',
     id: '',
-    dateAdded: new Date().getTime()
+    dateAdded: new Date().getTime(),
+    name: '',
+    yearHigh: '',
+    yearLow: '',
+    exchange: '',
+    averageVol: '',
+    dailyVol: '' ,
+    marketCap:  ''
   };
 
   open() {
@@ -81,7 +88,7 @@ search = '';
 
   async ngOnInit() {
 
- 
+
     var self = this
     if(!firebase.auth().currentUser){
       console.log("here")
@@ -100,7 +107,7 @@ await userDeviceRef.get().toPromise().then(async function(doc){
         console.log("document customdata foo: " + doc.data());
         self.simlist = await doc.data()
         self.simBalance = await self.simlist.simbalance
-        
+
         self.simcost = await self.simlist.simcost
         self.simlist = await self.simlist.simlist
     }
@@ -117,13 +124,13 @@ console.log(self.total)
 
      //this.stocks2Show = temp;
      //this.stocksToShow = temp2;
-     
-  
-      
+
+
+
 
     //this.stocks = this.stockService.getStocks();
 }
-  
+
 
   async setFinancialStatment() {
     this.http.get<any>(this.url).subscribe(data => {
@@ -152,18 +159,18 @@ console.log(self.total)
 
 
   async addStockToSim (s:string) {
-   
+
     var symbol = s
     this.stock.ticker = s;
     let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
     await this.http.get(url).subscribe(async data => {
-     
+
       this.stock.price= await data[0].price
       var t = await data[0].price
       console.log(this.stock.price)
       console.log(await data[0].price)
        // returns correct data
-    
+
     console.log(await this.stock.price)
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
@@ -171,7 +178,7 @@ console.log(self.total)
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
    console.log(this.simcost)
-  
+
 const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
     updateRef.update({
       simlist: firebase.firestore.FieldValue.arrayUnion(this.stock),
@@ -179,9 +186,9 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
       simbalance:this.simBalance - parseFloat(this.stock.price)
     });
    this.simBalance = this.simBalance- parseFloat(this.stock.price)
-   
+
    this.simcost += this.stock.price
-   
+
 
     })
 
@@ -222,9 +229,9 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
 
   sellStock(stock:string){
     console.log("removed")
-   
+
       this.fbService.sell(stock)
-   
+
 
   }
 

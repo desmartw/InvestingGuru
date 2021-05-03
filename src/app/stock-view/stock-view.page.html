@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar> <ion-button color = 'secondary' id = 'back' [routerLink]="'/tabs/'"></ion-button>
     <ion-title>{{this.stock.ticker}}</ion-title>
-
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
   <ion-list>
-    <ion-item> {{this.stock.price}} </ion-item>
+    <h1> {{this.stock.name}} </h1>
+    <h3> {{this.stock.exchange}} </h3>
+    <h1> ${{this.stock.price}}  %{{this.stock.move}}</h1>
+    <h1>Average Volume: {{this.stock.averageVol}} </h1>
+    <h1>Todays Volume: {{this.stock.dailyVol}} </h1>
+    <h1> Market Cap: ${{this.stock.marketCap}} </h1>
+
   </ion-list>
 </ion-content>

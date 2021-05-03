@@ -7,6 +7,16 @@ export interface Stock {
   ticker: string;
   // Price is current price for stock will need to use api
   price: string;
-  // date added is when user added stock to watchlist 
+  // move is percent moved in a dya
+  move: string;
+  // date added is when user added stock to watchlist
   dateAdded: any;
+
+  name:string;
+  yearHigh:string;
+  yearLow: string;
+  exchange:string;
+  averageVol:string;
+  dailyVol:string;
+  marketCap:string;
 }
