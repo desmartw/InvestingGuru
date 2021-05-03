@@ -14,13 +14,20 @@ export interface Stock {
     id?: any;
     // Ticker is letters to ID stock i.e. APPL, TSLA, etc
     ticker: string;
-    // Move is the stock's daily change 
+    // Move is the stock's daily change
     move: string;
     // Price is current price for stock will need to use api
     price: string;
     // date added is when user added stock to watchlist
     dateAdded: any;
     quantity:any;
+    name:string;
+    yearHigh:string;
+    yearLow: string;
+    exchange:string;
+    averageVol:string;
+    dailyVol:string;
+    marketCap:string;
   }
 
   @Injectable({

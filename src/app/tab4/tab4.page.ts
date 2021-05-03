@@ -42,7 +42,14 @@ export class Tab4Page implements OnInit {
     move:'',
     id: '',
     dateAdded: new Date().getTime(),
-    quantity: ''
+    quantity: '',
+    name:'',
+    yearHigh:'',
+    yearLow: '',
+    exchange: '',
+    averageVol: '',
+    dailyVol: '',
+    marketCap: '',
   };
 
   url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=08931942e38ee3d90b82154c5b6d50a6";
@@ -67,6 +74,10 @@ export class Tab4Page implements OnInit {
 
   ngOnInit(): void {
     this.stocks = this.stockService.getStocks();
+  }
+
+  viewStock(stock) {
+    this.router.navigate(['/stock-view/'+ stock.ticker]);
   }
 
 

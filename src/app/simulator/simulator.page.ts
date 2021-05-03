@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
 // import {Stock} from '../modal/Stock';
 import { StockService } from '../stock.service';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/';
 
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
@@ -33,7 +33,7 @@ search = '';
   searchTickers = [];
   qI:any;
   stockQuote = [];
-  
+
   stocksToShow:Stock[];
   stocks2Show;
 
@@ -48,7 +48,14 @@ search = '';
     move:'',
     id: '',
     dateAdded: new Date().getTime(),
-    quantity:''
+    quantity:'',
+    name:'',
+    yearHigh:'',
+    yearLow: '',
+    exchange: '',
+    averageVol: '',
+    dailyVol: '',
+    marketCap: '',
   };
 
   open() {
@@ -78,7 +85,7 @@ search = '';
 
     this.http.get<any>(this.url).subscribe(data => {
       console.log(data[0].symbol);
-   
+
       console.log(data);
 
     })
@@ -86,7 +93,7 @@ search = '';
 
   async ngOnInit() {
 
- 
+
     var self = this
     if(!firebase.auth().currentUser){
       console.log("here")
@@ -107,21 +114,25 @@ search = '';
         });
 
         console.log(temp)
-       
-      
-        //this.dailyMove = 0;
-     await firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
+
+
+
+
+     firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
+
     .onSnapshot(async (doc) => {
     	//this.dailyMove = 0;
     	self.simlist = await doc.data()
         self.simBalance = await self.simlist.simbalance
         this.truncBalance = await self.simlist.simbalance.toFixed(2)
-        
+
         self.simcost = await self.simlist.simcost
         self.truncCost = await self.simlist.simcost.toFixed(2)
 
-        self.simlist = await self.simlist.simlist
-        this.simlist.forEach(async function(stock){
+        
+
+await self.simlist.forEach(function(stock){
+
   		self.total+=stock.price
   		
   		self.dailyMove += parseFloat(stock.move)*parseInt(stock.quantity);
@@ -133,10 +144,14 @@ search = '';
     });
 
 
+
   	})  
   });
+
+
+
 }
-  
+
 
   async setFinancialStatment() {
     this.http.get<any>(this.url).subscribe(data => {
@@ -171,7 +186,7 @@ search = '';
     this.stock.ticker = s;
     let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
     await this.http.get(url).subscribe(async data => {
-     
+
       this.stock.price= await data[0].price
       
       this.stock.move = await data[0].change
@@ -180,7 +195,7 @@ search = '';
      
    
        // returns correct data
-    
+
     console.log(await this.stock.price)
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
@@ -199,16 +214,16 @@ search = '';
 
    if(!contains) {
    	this.stock.quantity = 1;
-  
+
 const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
     updateRef.update({
       simlist: firebase.firestore.FieldValue.arrayUnion(this.stock),
       simcost:this.simcost+this.stock.price,
-      
+
       simbalance:this.simBalance - parseFloat(this.stock.price)
     });
    this.simBalance = this.simBalance- parseFloat(this.stock.price)
-   
+
    this.simcost += this.stock.price
    }
 
@@ -220,14 +235,14 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
    	const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
     updateRef.update({
     	simlist:this.simlist,
-      
+
       simcost:this.simcost+this.stock.price,
-      
+
       simbalance:this.simBalance - parseFloat(this.stock.price)
     });
     console.log(this.stock)
    this.simBalance = this.simBalance- parseFloat(this.stock.price)
-   
+
    this.simcost += this.stock.price
 
    }
@@ -275,7 +290,7 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
   	var self = this
 
     console.log("removed")
-   
+
       //this.fbService.sell(stock)
       var index = this.simlist.findIndex(i => stock.ticker === i.ticker);
       //var tempBalance = this.simBalance + parseInt(this.simlist[index].quantity)*parseFloat(this.simlist[index].price)
@@ -291,11 +306,12 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
     updateRef.update({
       simlist: self.simlist,
       simcost:self.simcost - parseFloat(stock.price),
-      
+
       simbalance:tempBalance
     });
 }
 
+<<<<<<< HEAD
 else{
 
 	this.simlist.splice(index, 1)
@@ -309,6 +325,8 @@ else{
     });
 
    
+=======
+>>>>>>> 1e45d0bbc6a14739c803484f1000e4cfbc074388
 
   }
 }
