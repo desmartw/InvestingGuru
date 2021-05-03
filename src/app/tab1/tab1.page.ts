@@ -76,11 +76,6 @@ export class Tab1Page implements OnInit {
     private http:HttpClient,
     private afs: AngularFirestore
   ) {
-    this.http.get<any>(this.url).subscribe(data => {
-      console.log(data[0].symbol);
-      console.log(data);
-
-    })
   }
 
   async ngOnInit() {
@@ -99,21 +94,6 @@ export class Tab1Page implements OnInit {
         self.stocks2Show = self.stocks2Show.watchlist
 
     });
-
-  /* var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
-userDeviceRef.get().toPromise().then(function(doc){
-    if (doc.exists) {
-        console.log("Document data:", doc.data())
-        console.log("document customdata foo: " + doc.data());
-        self.stocks2Show = doc.data()
-        console.log(self.stocks2Show.watchlist)
-        self.stocks2Show = self.stocks2Show.watchlist
-    }
-})*/
-
-     //this.stocks2Show = temp;
-     //this.stocksToShow = temp2;
-    //this.stocks = this.stockService.getStocks();
 }
 
 
@@ -173,27 +153,6 @@ userDeviceRef.get().toPromise().then(function(doc){
       var t = await stockData[0].price
       console.log(this.stock.price)
       console.log(await stockData[0].price)
-
-       // returns correct data
-
-    console.log(await this.stock.price)
-    var symbol = this.stock.ticker;
-    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
-    await this.getStockQuote(symbol);
-    // need to do async call to wait here until stock info is recieved
-    // this.financialStatement[0] is correct data but cant figure out how to wait properly
-
-
-
-    // add stock to firebase
-    //need to populate with data first
-    this.fbService.addStock(this.stock).then((doc) => {
-      console.log(doc);
-      this.router.navigateByUrl('/');
-    }, err => {
-    });
-
-      // returns correct data
 
 
       this.stock.name = await stockData[0].name;
