@@ -38,6 +38,7 @@
     </ion-content>
 </ion-content>
 
+<div id = wrappy">
 
 <div (click)="open()" class="stock-search-component-small">
   <div class="stock-search">
@@ -63,12 +64,9 @@
     </div>
   </div>
 </div>
+</div>
 
 <div style="position: relative; bottom: 0px; width: 100%">
-  <ion-list>
-    <ion-item>
-      <ion-input placeholder="Enter Ticker" [(ngModel)]="stock.ticker"></ion-input>
-    </ion-item>
-  </ion-list>
+ 
   <ion-button color="primary" expand="full" (click)="goToBoard()">Add to Watchlist</ion-button>
 </div>
