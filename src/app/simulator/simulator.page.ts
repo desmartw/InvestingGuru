@@ -128,6 +128,7 @@ search = '';
 
         self.simcost = await self.simlist.simcost
         self.truncCost = await self.simlist.simcost.toFixed(2)
+        self.simlist = await self.simlist.simlist
 
         
 
@@ -311,7 +312,7 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
     });
 }
 
-<<<<<<< HEAD
+
 else{
 
 	this.simlist.splice(index, 1)
@@ -323,10 +324,6 @@ else{
       
       simbalance:tempBalance
     });
-
-   
-=======
->>>>>>> 1e45d0bbc6a14739c803484f1000e4cfbc074388
 
   }
 }

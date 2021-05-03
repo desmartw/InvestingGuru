@@ -34,7 +34,14 @@ leadersToShow = []
     move:'',
     id: '',
     dateAdded: new Date().getTime(),
-    quantity:''
+    quantity:'',
+    name:'',
+    yearHigh:'',
+    yearLow: '',
+    exchange: '',
+    averageVol: '',
+    dailyVol: '',
+    marketCap: '',
   };
 
   
