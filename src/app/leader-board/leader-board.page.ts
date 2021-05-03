@@ -70,28 +70,42 @@ leadersToShow = []
   }
 
   async ngOnInit() {
-
+  	var self = this
  
 
     
      
 
 
+        var temp = []
+     var temp2 = []
+
+
         const citiesRef = firebase.firestore().collection('Users');
         const snapshot = await citiesRef.get();
-        var i = 0;
         snapshot.forEach((doc) => {
-          this.leaders.push(doc.data().simbalance);
-          
+          self.leaders.push(doc.data());
         });
 
-        for(let user of this.leaders) {
-        	this.leaders.push(user.username, user.dailymove)
+        self.leaders.forEach(function(data){
+        	
+        	const o = {
+    name: data.username,
+    dailyMove: data.dailyMove,
+    /// other properties and values
+  }
+        	self.leadersToShow.push(o)
+        })
 
-        
-    }
+        console.log(self.leaders)
+
+    console.log(self.leadersToShow)
+
+    self.leadersToShow = self.leadersToShow.sort((a, b) => (a.dailyMove > b.dailyMove)?1:-1)
+    self.leadersToShow.sort((a,b) => (a.dailyMove > b.dailyMove) ? 1 : ((b.dailyMove > a.dailyMove) ? -1 : 0))
+self.leadersToShow.reverse()
        
-      
+        console.log(self.leadersToShow)
 
 
 
