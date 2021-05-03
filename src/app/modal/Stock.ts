@@ -11,12 +11,6 @@ export interface Stock {
   move: string;
   // date added is when user added stock to watchlist
   dateAdded: any;
-
-  name:string;
-  yearHigh:string;
-  yearLow: string;
-  exchange:string;
-  averageVol:string;
-  dailyVol:string;
-  marketCap:string;
+  // quantity is the amount of stock owned
+  quantity: string;
 }

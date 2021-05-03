@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Simulator {{this.simcost}} {{this.simbalance}}
+      Simulator {{this.truncCost}} {{this.truncBalance}}
       <ion-button class = "submit-btn" [routerLink]="'/newgame/'">Restart</ion-button>
     </ion-title>
   </ion-toolbar>
@@ -70,5 +70,5 @@
       <ion-input placeholder="Enter Ticker" [(ngModel)]="stock.ticker"></ion-input>
     </ion-item>
   </ion-list>
-  <ion-button color="primary" expand="full" (click)="addStock()">Add to Watchlist</ion-button>
+  <ion-button color="primary" expand="full" (click)="goToBoard()">Add to Watchlist</ion-button>
 </div>

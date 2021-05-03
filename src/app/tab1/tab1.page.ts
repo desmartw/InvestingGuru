@@ -42,13 +42,7 @@ export class Tab1Page implements OnInit {
     move:'',
     id: '',
     dateAdded: new Date().getTime(),
-    name: '',
-    yearHigh: '',
-    yearLow: '',
-    exchange: '',
-    averageVol: '',
-    dailyVol: '' ,
-    marketCap:  '',
+    quantity:''
   };
 
   open() {
@@ -89,17 +83,25 @@ export class Tab1Page implements OnInit {
     }
 
     var temp = []
-    var temp2 = []
-    var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
-    userDeviceRef.get().toPromise().then(function(doc){
-      if (doc.exists) {
+     var temp2 = []
+
+     firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
+    .onSnapshot(async (doc) => {
+      self.stocks2Show = await doc.data()
+        self.stocks2Show = self.stocks2Show.watchlist
+
+    });
+
+  /* var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
+userDeviceRef.get().toPromise().then(function(doc){
+    if (doc.exists) {
         console.log("Document data:", doc.data())
         console.log("document customdata foo: " + doc.data());
         self.stocks2Show = doc.data()
         console.log(self.stocks2Show.watchlist)
         self.stocks2Show = self.stocks2Show.watchlist
-      }
-    })
+    }
+})*/
 
      //this.stocks2Show = temp;
      //this.stocksToShow = temp2;

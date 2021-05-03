@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
 // import {Stock} from '../modal/Stock';
 import { StockService } from '../stock.service';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
@@ -18,6 +20,9 @@ import firebase from 'firebase/app'
 })
 export class SimulatorPage implements OnInit {
 	 simlist;
+	 truncBalance;
+	 truncCost;
+	 dailyMove;
 	 simcost;
 	 simBalance;
 	 total = 0;
@@ -43,13 +48,7 @@ search = '';
     move:'',
     id: '',
     dateAdded: new Date().getTime(),
-    name: '',
-    yearHigh: '',
-    yearLow: '',
-    exchange: '',
-    averageVol: '',
-    dailyVol: '' ,
-    marketCap:  ''
+    quantity:''
   };
 
   open() {
@@ -79,8 +78,7 @@ search = '';
 
     this.http.get<any>(this.url).subscribe(data => {
       console.log(data[0].symbol);
-      //this.financialStatement = [data];
-      //console.log(this.financialStatement[0])
+
       console.log(data);
 
     })
@@ -100,7 +98,32 @@ search = '';
 
     var temp = []
      var temp2 = []
-   var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
+
+
+        const citiesRef = firebase.firestore().collection('Users');
+        const snapshot = await citiesRef.get();
+        snapshot.forEach((doc) => {
+          temp.push(doc.data().simbalance);
+        });
+
+        console.log(temp)
+
+
+
+     firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
+    .onSnapshot(async (doc) => {
+    	self.simlist = await doc.data()
+        self.simBalance = await self.simlist.simbalance
+        this.truncBalance = await self.simlist.simbalance.toFixed(2)
+
+        self.simcost = await self.simlist.simcost
+        self.truncCost = await self.simlist.simcost.toFixed(2)
+
+        self.simlist = await self.simlist.simlist
+
+    });
+
+  /* var userDeviceRef = this.afs.collection("Users").doc(firebase.auth().currentUser.uid);
 await userDeviceRef.get().toPromise().then(async function(doc){
     if (doc.exists) {
         console.log("Document data:", doc.data())
@@ -109,26 +132,23 @@ await userDeviceRef.get().toPromise().then(async function(doc){
         self.simBalance = await self.simlist.simbalance
 
         self.simcost = await self.simlist.simcost
+
         self.simlist = await self.simlist.simlist
     }
     console.log(self.simBalance)
     console.log(self.simcost)
-})
+})*/
 
-this.simlist.forEach(function(stock){
+await self.simlist.forEach(function(stock){
   		self.total+=stock.price
+  		self.dailyMove += stock.move;
+
 
   	})
-console.log(self.total)
-
-
-     //this.stocks2Show = temp;
-     //this.stocksToShow = temp2;
 
 
 
 
-    //this.stocks = this.stockService.getStocks();
 }
 
 
@@ -160,12 +180,14 @@ console.log(self.total)
 
   async addStockToSim (s:string) {
 
+   	var self = this
     var symbol = s
     this.stock.ticker = s;
     let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
     await this.http.get(url).subscribe(async data => {
 
       this.stock.price= await data[0].price
+      if(this.simBalance>=this.stock.price){
       var t = await data[0].price
       console.log(this.stock.price)
       console.log(await data[0].price)
@@ -174,23 +196,57 @@ console.log(self.total)
     console.log(await this.stock.price)
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=11eadd2a7d24010d2e34e43730ebe2cc`;
-    await this.getStockQuote(symbol);
-    // need to do async call to wait here until stock info is recieved
-    // this.financialStatement[0] is correct data but cant figure out how to wait properly
-   console.log(this.simcost)
+   	var contains = false;
+
+   	this.simlist.forEach(function(stock){
+   		console.log(stock.ticker + " and " + s)
+   		if(stock.ticker === s){
+   			contains = true
+   			stock.quantity +=1
+   		}
+   	})
+
+
+
+
+   if(!contains) {
+   	this.stock.quantity = 1;
 
 const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
     updateRef.update({
       simlist: firebase.firestore.FieldValue.arrayUnion(this.stock),
       simcost:this.simcost+this.stock.price,
+
       simbalance:this.simBalance - parseFloat(this.stock.price)
     });
    this.simBalance = this.simBalance- parseFloat(this.stock.price)
 
    this.simcost += this.stock.price
+   }
 
+   else {
+
+   	console.log(this.stock.quantity)
+   //	this.stock.quantity = this.stock.quantity +1
+
+   	const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
+    updateRef.update({
+    	simlist:this.simlist,
+
+      simcost:this.simcost+this.stock.price,
+
+      simbalance:this.simBalance - parseFloat(this.stock.price)
+    });
+    console.log(this.stock)
+   this.simBalance = this.simBalance- parseFloat(this.stock.price)
+
+   this.simcost += this.stock.price
+
+   }
+}
 
     })
+
 
   }
 
@@ -227,10 +283,30 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
     this.router.navigate(['/stock-view/'+ stock.ticker]);
   }
 
-  sellStock(stock:string){
+  sellStock(stock:Stock){
+  	var self = this
+
     console.log("removed")
 
-      this.fbService.sell(stock)
+      //this.fbService.sell(stock)
+      var index = this.simlist.findIndex(i => stock.ticker === i.ticker);
+      //var tempBalance = this.simBalance + parseInt(this.simlist[index].quantity)*parseFloat(this.simlist[index].price)
+      var tempBalance = this.simBalance + stock.price
+      var tempQuantity = parseInt(this.simlist[index].quantity) -1
+
+      //this.simlist.splice(index, 1)
+
+      if(tempQuantity>0){
+      	self.simlist[index].quantity = tempQuantity
+
+      const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.uid);
+    updateRef.update({
+      simlist: self.simlist,
+      simcost:self.simcost - parseFloat(stock.price),
+
+      simbalance:tempBalance
+    });
+}
 
 
   }
@@ -241,6 +317,10 @@ const updateRef = this.afs.collection('Users').doc(firebase.auth().currentUser.u
   		running=+stock.price
 
   	})
+  }
+
+  goToBoard(){
+
   }
 
 
