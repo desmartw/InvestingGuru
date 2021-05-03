@@ -27,7 +27,7 @@ export class StockViewPage implements OnInit {
       averageVol: '',
       dailyVol: '',
       marketCap: '',
-      
+
   };
 	url = '';
 	stockData:any = [];
@@ -41,6 +41,9 @@ export class StockViewPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+  getStockImage(symbol) {
+    return `https://financialmodellingprep.com/images-New-jpg/${symbol.toUpperCase()}.jpg`
   }
 
 

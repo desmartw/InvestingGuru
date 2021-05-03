@@ -29,6 +29,7 @@ export class Tab1Page implements OnInit {
   stockQuote = [];
 
   stocksToShow:Stock[];
+  
   stocks2Show;
 
 
@@ -174,7 +175,7 @@ userDeviceRef.get().toPromise().then(function(doc){
       console.log(await stockData[0].price)
 
        // returns correct data
-    
+
     console.log(await this.stock.price)
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
@@ -182,7 +183,7 @@ userDeviceRef.get().toPromise().then(function(doc){
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
 
-   
+
 
     // add stock to firebase
     //need to populate with data first

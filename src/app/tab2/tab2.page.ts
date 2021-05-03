@@ -27,7 +27,7 @@ export class Tab2Page implements OnInit {
 
 
   viewStock(stock){
-    this.router.navigate(['/stock-view/'+ stock.ticker]);
+    this.router.navigate(['/stock-view/'+ stock]);
   }
   getStockImage(symbol) {
     return `https://financialmodellingprep.com/images-New-jpg/${symbol.toUpperCase()}.jpg`
