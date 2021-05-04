@@ -1,20 +1,19 @@
 
-<ion-header lines="none">
-	<ion-toolbar lines="none">
-<ion-title lines="none" id = "title">
-
-<ion-button lines="none"class = "submi-btn" [routerLink]="'/tabs/simulator'">Back</ion-button>
-</ion-title>
+<ion-header no-lines>
+	<ion-toolbar no-lines>
+<ion-title no-lines id = "title">New Simulator</ion-title>
 </ion-toolbar>
+<ion-button class = "submit-btn" [routerLink]="'/tabs/simulator'">Back</ion-button>
 </ion-header>
-
 <ion-content id = 'form' padding>
-	<ion-item lines="none" id = "form">Starting over will clear all of your owned securities and reset your account balance to $5,000. Are you sure you want to continue?</ion-item>
+	<ion-item class = "roundedInput" id = 'username'>
+		
+		<ion-input placeholder = "Starting amount" type = "text" [(ngModel)]="user.amount" required></ion-input>
+	</ion-item>
 	
-	
-	<ion-item id = "bot" lines="none">
-	<ion-grid no-lines>
-		<ion-button no-lines class = "submit-btn" [routerLink]="'/tabs/simulator'" (click) = "newGame()">Restart</ion-button>
+	<ion-item>
+	<ion-grid>
+		<ion-button class = "submit-btn" [routerLink]="'/tabs/simulator'" (click) = "newGame()">Restart</ion-button>
 	</ion-grid>
 </ion-item>
 	

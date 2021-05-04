@@ -12,15 +12,15 @@
 	<br/>
 	<ion-item class = 'roundedInput' id ="password">
 		
-		<ion-input placeholder = "Password" type = "password" [(ngModel)]="user.password" required></ion-input>
+		<ion-input placeholder = "Password" type = "text" [(ngModel)]="user.password" required></ion-input>
 	</ion-item>
 	<br/>
 	
 	
-	<ion-button class = "submit-btn" expand="block" type = "submit" (click)="login();">Log In</ion-button>
+	<ion-button class = "submit-btn" expand="block" type = "submit" (click)="login()">Sign Up</ion-button>
 	<ion-item>
 	<ion-grid>
-		No Account? <ion-button class = "submit-btn" (click) = "goToSignUp()">Sign Up</ion-button>
+		<ion-button class = "submit-btn" (click) = "loginGoogle()">Google Login</ion-button>
 	</ion-grid>
 </ion-item>
 	

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>
       Leaderboard
-      <ion-button class = "submit-btn" [routerLink]="'/tabs/simulator/'">Restart</ion-button>
+      <ion-button class = "submit-btn" [routerLink]="'/newgame/'">Restart</ion-button>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -22,12 +22,12 @@
   <ion-card id="view-stocks">
     <ion-list>
 
-		<ion-item *ngFor="let stock of leadersToShow"  >
+		<ion-item *ngFor="let stock of simlist"  >
 
 
-			<ion-label >{{stock.name}}</ion-label>
-			<ion-label >${{stock.dailyMove}}</ion-label>
-      
+			<ion-label [routerLink]="'/stock-view/'+stock.ticker">{{stock.ticker}}</ion-label>
+			<ion-label [routerLink]="'/stock-view/'+stock.ticker">${{stock.price}}</ion-label>
+      <ion-button (click) = "this.sellStock(stock)">Sell</ion-button>
 		</ion-item>
 	</ion-list>
     </ion-card>

@@ -10,23 +10,16 @@
 		<ion-input placeholder = "Email" type = "text" [(ngModel)]="user.email" required></ion-input>
 	</ion-item>
 	<br/>
-	<ion-item class = "roundedInput" id = 'userkname'>
+	<ion-item class = 'roundedInput' id ="password">
 		
-		<ion-input placeholder = "Username" type = "text" [(ngModel)]="user.username" required></ion-input>
+		<ion-input placeholder = "Password" type = "text" [(ngModel)]="user.password" required></ion-input>
 	</ion-item>
 	<br/>
 	<ion-item class = 'roundedInput' id ="password">
 		
-		<ion-input placeholder = "Password" type = "password" [(ngModel)]="user.password" required></ion-input>
+		<ion-input placeholder = "Confirm Password" type = "text" [(ngModel)]="user.confirmPassword" required></ion-input>
 	</ion-item>
-	<br/>
-	<ion-item class = 'roundedInput' id ="password">
-		
-		<ion-input placeholder = "Confirm Password" type = "password" [(ngModel)]="user.confirmPassword" required></ion-input>
-	</ion-item>
-	<ion-button class = "submit-btn" expand="block" type = "submit" (click)="signup();login()">Sign Up</ion-button>
-
-	<ion-button class = "submit-btn" expand="block" type = "submit" (click)="goToLogin()">Log In</ion-button>
+	<ion-button class = "submit-btn" expand="block" type = "submit" (click)="signup()">Sign Up</ion-button>
 	
 
 
