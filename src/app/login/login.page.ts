@@ -19,12 +19,12 @@ import 'firebase/database';
 export class LoginPage implements OnInit {
 	new_item_form:FormGroup;
 	user= {email:"", password:""}
-	
 
 
-  constructor(private db:AngularFirestore, public afAuth: AngularFireAuth,private router:Router, private formBuilder:FormBuilder) { 
-  	
-	
+
+  constructor(private db:AngularFirestore, public afAuth: AngularFireAuth,private router:Router, private formBuilder:FormBuilder) {
+
+
 
   }
 
@@ -49,8 +49,8 @@ docRef.get().toPromise().then((doc) => {
         // do stuff with the data
       })
     	 return Promise.all([createProfile])
-        
-    } 
+
+    }
 
 }).catch((error) => {
     console.log("Error getting document:", error);
@@ -58,28 +58,28 @@ docRef.get().toPromise().then((doc) => {
 
   	user.get().toPromise().then(async(docSnapshot) => {
     if (docSnapshot.exists) {
-     
-    
-      // create the document
-    
 
-    
+
+      // create the document
+
+
+
 	    }})
   }*/
 
 
-  login() {
+  async login() {
   	//console.log(item.email+"  "+item.password)
-    
+
   	console.log("signin ...");
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-  .then(() => {
+    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  .then(async () => {
     // Existing and future Auth states are now persisted in the current
     // session only. Closing the window would clear any existing state even
     // if a user forgets to sign out.
     // ...
     // New sign-in will be persisted with session persistence.
-    return firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password);
+    return await firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password);
   })
   .catch((error) => {
     // Handle Errors here.
@@ -89,7 +89,7 @@ docRef.get().toPromise().then((doc) => {
   this.router.navigateByUrl('/');
 
 
-  
+
 }
 
 loginGoogle(){
@@ -105,6 +105,10 @@ loginGoogle(){
 	})
 }
 
- 
+goToSignUp(){
+  this.router.navigate([("/signup")])
+}
+
+
 
 }
