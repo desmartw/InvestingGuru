@@ -9,15 +9,22 @@
 <ion-content>
   <ion-list>
 
-    <ion-img [src]="getStockImage(this.stock.ticker)"> </ion-img>
-    <h1> {{this.stock.name}} </h1>
-    <h3> {{this.stock.exchange}} </h3>
-    <h1> ${{this.stock.price}}  </h1>
+    <ion-img [src]="getStockImage(this.stock.ticker)" class='images'> </ion-img>
+    <h1 class="padding2"> {{this.stock.name}} </h1>
+    <p class="padding3"> {{this.stock.exchange}} </p>
+  </ion-list>
+  <!-- </ion-content>
+  <ion-content> -->
+  <ion-list class = "body">
 
-    <h1 [ngClass]="isPositive ? 'green': 'red'"> % change today: {{this.stock.move}} </h1>
-    <h1>Average Volume: {{this.stock.averageVol}} </h1>
-    <h1>Todays Volume: {{this.stock.dailyVol}} </h1>
-    <h1> Market Cap: ${{this.stock.marketCap}} </h1>
+    <h1 class="price">  Live Quote: ${{this.stock.price}}  </h1>
+
+    <h1 class="padding1"[ngClass]="isPositive ? 'green': 'red'">Todays change: {{this.stock.move}} %</h1>
+      <!-- <h1 [ngClass]="isPositive ? 'green': 'red'"> Percent Change: {{this.stock.move}} %</h1> -->
+
+    <h1 class="additionalInfo"> Average Volume: {{this.stock.averageVol}} </h1>
+    <h1 class="additionalInfo"> Todays Volume: {{this.stock.dailyVol}} </h1>
+    <h1 class="additionalInfo"> Market Cap: ${{this.stock.marketCap}} </h1>
 
   </ion-list>
 </ion-content>
