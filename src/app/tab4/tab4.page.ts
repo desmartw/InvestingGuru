@@ -97,16 +97,7 @@ logout(){
   viewStock(stock) {
     this.router.navigate(['/stock-view/'+ stock.ticker]);
   }
-  logout(){
-  firebase.auth().signOut().then(() => {
-  // Sign-out successful.
-  this.router.navigate(["/login"])
-}).catch((error) => {
-  // An error happened.
-});
-
-}
-
+ 
 
   getStockImage(symbol) {
     return `https://financialmodellingprep.com/images-New-jpg/${symbol.toUpperCase()}.jpg`

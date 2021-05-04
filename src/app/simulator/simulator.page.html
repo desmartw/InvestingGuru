@@ -33,14 +33,16 @@
 
 			<ion-label [routerLink]="'/stock-view/'+stock.ticker">{{stock.ticker}}</ion-label>
 			<ion-label [routerLink]="'/stock-view/'+stock.ticker">${{stock.price}}</ion-label>
-      <ion-button (click) = "this.sellStock(stock)">Sell</ion-button>
+      <ion-button style = "border-radius: 20px;
+ 	--background: white;
+ 	color: #32a852;"(click) = "this.sellStock(stock)">Sell</ion-button>
 		</ion-item>
 	</ion-list>
 
     </ion-card>
-    <div id = "bsal">Total Account Value (USD):</div> <br/><div id = "bal">{{this.truncCost}}</div>
+    <div id = "bsal">Total Account Value:</div> <br/><div id = "bal">{{this.truncCost}}</div>
     <br/>
-    <div id = "bsal">Daily Gain/Loss <div id = "bal"> ${{this.dailyMove}}</div></div>
+    <div id = "bsal">Daily Gain/Loss:</div> <br/><div id = "bal">{{this.dailyMove}}</div>
     </ion-content>
     </ion-content>
 
@@ -74,5 +76,7 @@
 
 <div id = "board" style="position: relative; width: 100%">
  
-  <ion-button color="primary" expand="full" (click)="goToBoard()">View Leaderboard</ion-button>
+  <ion-button style = "border-radius: 20px;
+ 	--background: white;
+ 	color: #32a852;" expand="full" (click)="goToBoard()">View Leaderboard</ion-button>
 </div>

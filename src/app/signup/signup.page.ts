@@ -37,13 +37,7 @@ export class SignupPage implements OnInit {
 async login() {
     //console.log(item.email+"  "+item.password)
 
-<<<<<<< HEAD
-=======
-  async login() {
-    //console.log(item.email+"  "+item.password)
 
->>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
-    console.log("signin ...");
     await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   .then(async () => {
     // Existing and future Auth states are now persisted in the current
@@ -63,11 +57,7 @@ async login() {
 
 
 }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
   async signup() {
   	//firebase.initializeApp(config);
 
@@ -99,11 +89,7 @@ async login() {
 
 
   			console.log("finished creating account")
-<<<<<<< HEAD
-  			//self.router.navigate(["/tabs/tab1"])
-=======
 
->>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
 
   		})
 
@@ -117,19 +103,12 @@ async login() {
       watchlist:[],
       simlist:[]
     })
-<<<<<<< HEAD
-    self.router.navigate(["/tabs/tab1"])
-=======
->>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
 
-self.router.navigate(["/tabs/tab1"])
     return await Promise.all([createProfile])
       //this.uploadDataToFirebase()
   }
 
-  goToLogin(){
-    this.router.navigate([("/login")])
-  }
+ 
 
   ngOnInit() {
   }
