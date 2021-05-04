@@ -80,10 +80,13 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     var self = this
-    if(!firebase.auth().currentUser){
-      console.log("here")
+
+    firebase.auth().onAuthStateChanged(user => {
+  if (!user){
+    
       self.router.navigate(["/login"])
     }
+  })
 
     var temp = []
      var temp2 = []
@@ -172,14 +175,7 @@ export class Tab1Page implements OnInit {
       console.log(this.stock.dailyVol);
       console.log(this.stock.marketCap);
 
-      // add stock to firebase
-      //need to populate with data first
-      this.fbService.addStock(this.stock).then((doc) => {
-        console.log(doc);
-        this.router.navigateByUrl('/');
-      }, err => { console.log("error adding to firebase");
-
-      });
+    
 
     })
   }

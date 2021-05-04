@@ -8,6 +8,13 @@ import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 
+import { Injectable } from '@angular/core';
+import firebase from 'firebase/app';
+
+import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/firestore';
+import {map, take} from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-tab4',
@@ -70,6 +77,17 @@ export class Tab4Page implements OnInit {
     this.financialStatement = [data];
     console.log(this.financialStatement[0])
   })
+}
+
+
+logout(){
+  firebase.auth().signOut().then(() => {
+  // Sign-out successful.
+  this.router.navigate(["/login"])
+}).catch((error) => {
+  // An error happened.
+});
+
 }
 
   ngOnInit(): void {

@@ -121,10 +121,10 @@ search = '';
      firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
 
     .onSnapshot(async (doc) => {
-    	//this.dailyMove = 0;
+    	this.dailyMove = 0;
     	self.simlist = await doc.data()
         self.simBalance = await self.simlist.simbalance
-        this.truncBalance = await self.simlist.simbalance.toFixed(2)
+        self.truncBalance = await self.simlist.simbalance.toFixed(2)
 
         self.simcost = await self.simlist.simcost
         self.truncCost = await self.simlist.simcost.toFixed(2)
@@ -132,22 +132,25 @@ search = '';
 
         
 
-await self.simlist.forEach(function(stock){
+await self.simlist.forEach(async function(stock){
 
   		self.total+=stock.price
   		
-  		self.dailyMove += parseFloat(stock.move)*parseInt(stock.quantity);
-
-  		const updateRef = self.afs.collection('Users').doc(firebase.auth().currentUser.uid);
+  		 self.dailyMove +=  parseFloat(stock.move)*parseInt(stock.quantity);
+  		console.log(self.dailyMove)
+  		const updateRef = await self.afs.collection('Users').doc(firebase.auth().currentUser.uid);
     updateRef.update({
       dailyMove: self.dailyMove,
       
     });
 
+  		
 
 
   	})  
   });
+    
+
 
 
 
@@ -191,6 +194,7 @@ await self.simlist.forEach(function(stock){
       this.stock.price= await data[0].price
       
       this.stock.move = await data[0].change
+      console.log(firebase.auth().currentUser.uid)
       
       if(this.simBalance>=this.stock.price){
      
@@ -201,15 +205,17 @@ await self.simlist.forEach(function(stock){
     var symbol = this.stock.ticker;
     this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
    	var contains = false;
-
+console.log(this.simlist)
    	this.simlist.forEach(function(stock){
-   		console.log(stock.ticker + " and " + s)
+   		
    		if(stock.ticker === s){
    			contains = true
    			stock.quantity +=1
    		}
    	})
 
+
+  
 
 
 
@@ -337,6 +343,7 @@ else{
   }
 
   goToBoard(){
+  	this.router.navigate([('/leader-board')])
 
   }
 

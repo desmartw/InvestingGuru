@@ -68,18 +68,18 @@ docRef.get().toPromise().then((doc) => {
   }*/
 
 
-  login() {
+  async login() {
   	//console.log(item.email+"  "+item.password)
     
   	console.log("signin ...");
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-  .then(() => {
+    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  .then(async () => {
     // Existing and future Auth states are now persisted in the current
     // session only. Closing the window would clear any existing state even
     // if a user forgets to sign out.
     // ...
     // New sign-in will be persisted with session persistence.
-    return firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password);
+    return await firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password);
   })
   .catch((error) => {
     // Handle Errors here.
@@ -103,6 +103,10 @@ loginGoogle(){
 		self.router.navigate(["/"]);
 
 	})
+}
+
+goToSignUp(){
+  this.router.navigate([("/signup")])
 }
 
  
