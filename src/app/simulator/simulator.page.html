@@ -13,7 +13,7 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Simulator
-
+      	
 
 
       </ion-title>
@@ -21,21 +21,19 @@
   </ion-header>
 
   <ion-content>
-  <ion-card lines = "none" id="view-stocks">
+  <ion-card id="view-stocks">
     <!-- <ion-card-header>
       <ion-card-subtitle>{{stock.dateAdded | date: 'short'}}</ion-card-subtitle>
       <ion-card-title>{{stock.ticker}}</ion-card-title>
     </ion-card-header> -->
-    <ion-list lines = "none">
+    <ion-list>
 
-		<ion-item lines="none" *ngFor="let stock of simlist"  >
+		<ion-item *ngFor="let stock of simlist"  >
 
 
 			<ion-label [routerLink]="'/stock-view/'+stock.ticker">{{stock.ticker}}</ion-label>
 			<ion-label [routerLink]="'/stock-view/'+stock.ticker">${{stock.price}}</ion-label>
-      <ion-button style="border-radius: 20px;
- 	--background: white;
- 	color: #32a852;"id = "sell" (click) = "this.sellStock(stock)">Sell</ion-button>
+      <ion-button (click) = "this.sellStock(stock)">Sell</ion-button>
 		</ion-item>
 	</ion-list>
 
@@ -47,7 +45,7 @@
     </ion-content>
 
 
-<div (click) = "hide();clear()" id = "wrappy">
+<div id = "wrappy">
 
 <div (click)="open()" class="stock-search-component-small">
   <div class="stock-search">
@@ -58,25 +56,23 @@
       <i class="fas fa-search"></i>
     </div>
   </div>
-
-  <div *ngIf="searchTickers.length && show" (click)="clear() && hide()" class="stock-search-result">
+<div *ngIf="searchTickers.length && show" (click)="clear() && hide()" class="stock-search-result">
     <div *ngFor="let stock of searchTickers" class="search-result-item">
       <div class="search-result-image">
         <img [src]="getStockImage(stock.symbol)" [alt]="stock.name" />
       </div>
 
       <div (click)="addStockToSim(stock.symbol)" class="search-result-name">
-        <strong style= "color:black;">{{ stock.symbol }}</strong> |
-        <strong style= "color:black;">{{ stock.name }}</strong> |
-        <strong style= "color:black;">{{ stock.stockExchange }}</strong>
+        <strong style="color:black">{{ stock.symbol }}</strong> |
+        <<strong style="color:black">{{ stock.name }}</strong> |
+        <strong style="color:black">{{ stock.stockExchange }}</strong>
       </div>
     </div>
   </div>
 </div>
-</div>
 
 
 <div id = "board" style="position: relative; width: 100%">
-
-  <ion-button color="primary" expand="full" (click)="goToBoard()">View Today's Leaderboard</ion-button>
+ 
+  <ion-button color="primary" expand="full" (click)="goToBoard()">View Leaderboard</ion-button>
 </div>

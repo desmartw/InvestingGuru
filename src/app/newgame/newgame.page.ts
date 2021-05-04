@@ -32,7 +32,8 @@ constructor(private afs:AngularFirestore, public afAuth: AngularFireAuth,private
     updateRef.update({
       simlist: [],
       simcost:0,
-      simbalance:this.user.amount
+      simbalance:5000,
+      dailyMove:0
     });
 
     

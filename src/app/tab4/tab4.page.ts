@@ -7,6 +7,12 @@ import { StockService } from '../stock.service';
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import firebase from 'firebase/app';
+
+import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/firestore';
+import {map, take} from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -79,6 +85,15 @@ export class Tab4Page implements OnInit {
   viewStock(stock) {
     this.router.navigate(['/stock-view/'+ stock.ticker]);
   }
+  logout(){
+  firebase.auth().signOut().then(() => {
+  // Sign-out successful.
+  this.router.navigate(["/login"])
+}).catch((error) => {
+  // An error happened.
+});
+
+}
 
 
   getStockImage(symbol) {
@@ -87,7 +102,7 @@ export class Tab4Page implements OnInit {
 
   fetchResults(symbol, count) {
     if (!symbol) this.hide();
-    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=08931942e38ee3d90b82154c5b6d50a6`).subscribe(data =>{
+    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=4aeafe1f5dd06ea9c62c7af2c6199d5c`).subscribe(data =>{
       console.log(data)
       this.searchTickers = data;
     })

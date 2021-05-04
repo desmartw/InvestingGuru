@@ -63,7 +63,7 @@ export class Tab1Page implements OnInit {
     this.search = '';
   }
 
-  url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=08931942e38ee3d90b82154c5b6d50a6";
+  url = "https://financialmodelingprep.com/api/v3/profile/AAPL?apikey=4aeafe1f5dd06ea9c62c7af2c6199d5c";
   financialStatement: any=[];
 
 
@@ -80,10 +80,12 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     var self = this
-    if(!firebase.auth().currentUser){
-      console.log("here")
+     firebase.auth().onAuthStateChanged(user => {
+  if (!user){
+
       self.router.navigate(["/login"])
     }
+  })
 
     var temp = []
      var temp2 = []
@@ -108,7 +110,7 @@ export class Tab1Page implements OnInit {
 
 
   async getStockQuote (symbol) {
-    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
+    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=4aeafe1f5dd06ea9c62c7af2c6199d5c`;
 
     this.http.get(url).subscribe(data => {
       console.log(data);
@@ -124,7 +126,7 @@ export class Tab1Page implements OnInit {
 
    async addStock () {
     var symbol = this.stock.ticker;
-    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
+    this.url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=4aeafe1f5dd06ea9c62c7af2c6199d5c`;
     await this.getStockQuote(symbol);
     // need to do async call to wait here until stock info is recieved
     // this.financialStatement[0] is correct data but cant figure out how to wait properly
@@ -145,7 +147,7 @@ export class Tab1Page implements OnInit {
 
     var symbol = s
     this.stock.ticker = s;
-    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=08931942e38ee3d90b82154c5b6d50a6`;
+    let url = `https://financialmodelingprep.com/api/v3/quote/`+symbol+`?apikey=4aeafe1f5dd06ea9c62c7af2c6199d5c`;
     await this.http.get(url).subscribe(async data => {
       var stockData = await data
 
@@ -196,7 +198,7 @@ export class Tab1Page implements OnInit {
 
   fetchResults(symbol, count) {
     if (!symbol) this.hide();
-    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=08931942e38ee3d90b82154c5b6d50a6`).subscribe(data =>{
+    this.http.get<any>(`https://financialmodelingprep.com/api/v3/search?query=${symbol}&limit=100&apikey=4aeafe1f5dd06ea9c62c7af2c6199d5c`).subscribe(data =>{
       console.log(data)
       this.searchTickers = data;
     });
