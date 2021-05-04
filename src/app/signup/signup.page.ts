@@ -22,7 +22,7 @@ export class SignupPage implements OnInit {
 		password:"",
 		confirmPassword:""};
 	created=true;
-	
+
 
   constructor(private db:AngularFirestore,public afAuth: AngularFireAuth,private router:Router) { }
 
@@ -30,13 +30,19 @@ export class SignupPage implements OnInit {
     const createProfile : Promise<void> =this.db.collection('Carts').doc(firebase.auth().currentUser?.uid).set({
       cart:[]
     })
-   
+
 
     return await Promise.all([createProfile])
   }*/
 async login() {
     //console.log(item.email+"  "+item.password)
 
+<<<<<<< HEAD
+=======
+  async login() {
+    //console.log(item.email+"  "+item.password)
+
+>>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
     console.log("signin ...");
     await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   .then(async () => {
@@ -57,17 +63,23 @@ async login() {
 
 
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
   async signup() {
   	//firebase.initializeApp(config);
-  	
+
   	console.log(this.user.email + "  " + this.user.password)
   	var email = this.user.email
+    var username = this.user.username
   	var password = this.user.password
     var username = this.user.username
   	var self = this;
   	if(password==this.user.confirmPassword) {
-  	firebase.auth().createUserWithEmailAndPassword(email, password).catch(
-      
+  	await firebase.auth().createUserWithEmailAndPassword(email, password).catch(
+
 
   		function(error) {
   			console.log(error);
@@ -83,13 +95,18 @@ async login() {
   		}).then(function(user){
 
 
-        
-        
-      
+
+
+
   			console.log("finished creating account")
+<<<<<<< HEAD
   			//self.router.navigate(["/tabs/tab1"])
+=======
+
+>>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
 
   		})
+
   	}
 
     const createProfile : Promise<void> =this.db.collection('Users').doc(firebase.auth().currentUser?.uid).set({
@@ -100,8 +117,12 @@ async login() {
       watchlist:[],
       simlist:[]
     })
+<<<<<<< HEAD
     self.router.navigate(["/tabs/tab1"])
+=======
+>>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
 
+self.router.navigate(["/tabs/tab1"])
     return await Promise.all([createProfile])
       //this.uploadDataToFirebase()
   }
@@ -111,6 +132,10 @@ async login() {
   }
 
   ngOnInit() {
+  }
+
+  goToLogin(){
+    this.router.navigate([("/login")])
   }
 
 }

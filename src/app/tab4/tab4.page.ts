@@ -7,6 +7,7 @@ import { StockService } from '../stock.service';
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 
@@ -76,6 +77,17 @@ export class Tab4Page implements OnInit {
     this.financialStatement = [data];
     console.log(this.financialStatement[0])
   })
+}
+
+
+logout(){
+  firebase.auth().signOut().then(() => {
+  // Sign-out successful.
+  this.router.navigate(["/login"])
+}).catch((error) => {
+  // An error happened.
+});
+
 }
 
   ngOnInit(): void {

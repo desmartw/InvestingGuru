@@ -17,14 +17,16 @@ import 'firebase/database';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  new_item_form:FormGroup;
-  user= {email:"", password:""}
-  
+
+	new_item_form:FormGroup;
+	user= {email:"", password:""}
 
 
-  constructor(private db:AngularFirestore, public afAuth: AngularFireAuth,private router:Router, private formBuilder:FormBuilder) { 
-    
-  
+
+  constructor(private db:AngularFirestore, public afAuth: AngularFireAuth,private router:Router, private formBuilder:FormBuilder) {
+
+
+
 
   }
 
@@ -45,27 +47,39 @@ docRef.get().toPromise().then((doc) => {
       cart:[]
         // do stuff with the data
       })
+<<<<<<< HEAD
        return Promise.all([createProfile])
         
     } 
+=======
+    	 return Promise.all([createProfile])
+
+    }
+
+>>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
 }).catch((error) => {
     console.log("Error getting document:", error);
 });
     user.get().toPromise().then(async(docSnapshot) => {
     if (docSnapshot.exists) {
-     
-    
+
+
       // create the document
+<<<<<<< HEAD
     
     
       }})
+=======
+
+
+
+	    }})
+>>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
   }*/
 
 
   async login() {
-    //console.log(item.email+"  "+item.password)
-    
-    console.log("signin ...");
+
     await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   .then(async () => {
     // Existing and future Auth states are now persisted in the current
@@ -83,7 +97,7 @@ docRef.get().toPromise().then((doc) => {
   this.router.navigateByUrl('/');
 
 
-  
+
 }
 
 loginGoogle(){
@@ -103,6 +117,7 @@ goToSignUp(){
   this.router.navigate([("/signup")])
 }
 
- 
+
+
 
 }

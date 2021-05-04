@@ -124,32 +124,37 @@ search = '';
     	this.dailyMove = 0;
     	self.simlist = await doc.data()
         self.simBalance = await self.simlist.simbalance
+
        self.truncBalance = await self.simlist.simbalance.toFixed(2)
+
 
         self.simcost = await self.simlist.simcost
        self.truncCost = await self.simlist.simcost.toFixed(2)
         self.simlist = await self.simlist.simlist
 
-        
+
 
 await self.simlist.forEach(async function(stock){
 
   		self.total+=stock.price
-  		
+
   		 self.dailyMove +=  parseFloat(stock.move)*parseInt(stock.quantity);
   		console.log(self.dailyMove)
   		const updateRef = await self.afs.collection('Users').doc(firebase.auth().currentUser.uid);
     updateRef.update({
       dailyMove: self.dailyMove,
-      
+
     });
 
   		
 
 
-  	})  
+
+  	})
   });
     
+
+
 
 
 
@@ -192,13 +197,13 @@ await self.simlist.forEach(async function(stock){
     await this.http.get(url).subscribe(async data => {
 
       this.stock.price= await data[0].price
-      
+
       this.stock.move = await data[0].change
       console.log(firebase.auth().currentUser.uid)
-      
+
       if(this.simBalance>=this.stock.price){
-     
-   
+
+
        // returns correct data
 
     console.log(await this.stock.price)
@@ -207,7 +212,7 @@ await self.simlist.forEach(async function(stock){
    	var contains = false;
 console.log(this.simlist)
    	this.simlist.forEach(function(stock){
-   		
+
    		if(stock.ticker === s){
    			contains = true
    			stock.quantity +=1
@@ -216,6 +221,8 @@ console.log(this.simlist)
 
 
   
+
+
 
 
 
@@ -327,7 +334,7 @@ else{
     updateRef.update({
       simlist: self.simlist,
       simcost:self.simcost - parseFloat(stock.price),
-      
+
       simbalance:tempBalance
     });
 

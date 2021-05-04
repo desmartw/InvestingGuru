@@ -1,27 +1,34 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Search
+      Settings
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+<<<<<<< HEAD
   <ion-button class = "submit-btn" expand="block" type = "submit" (click)="logout()">Log Out</ion-button>
+=======
+
+>>>>>>> 7d81e67c379e4e3eff8ca71a5b69f4d532fc7413
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Settings</ion-title>
     </ion-toolbar>
+
+
     <ion-toolbar>
-       <ion-searchbar
+
+       <!-- <ion-searchbar
          [ngModel]="search" (ngModelChange)="searchFunc($event)" class="search-box" placeholder="Search stock..." title="Search for stock information" >
-      </ion-searchbar>
+      </ion-searchbar> -->
      </ion-toolbar>
   </ion-header>
   <ion-content>
+      <ion-button class = "submit-btn" expand="block" type = "submit" (click)="logout()">Log Out</ion-button>
 
-
-  <div *ngIf="searchTickers.length && show" (click)="clear() && hide()" class="stock-search-result">
+  <!-- <div *ngIf="searchTickers.length && show" (click)="clear() && hide()" class="stock-search-result">
     <div *ngFor="let stock of searchTickers" class="search-result-item">
       <div class="search-result-image">
         <ion-thumbnail>
@@ -36,7 +43,7 @@
         <strong>{{ stock.stockExchange }}</strong>
       </div>
     </div>
-  </div>
+  </div> -->
 
   </ion-content>
 
