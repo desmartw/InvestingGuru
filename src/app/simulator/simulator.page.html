@@ -1,10 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-    	<ion-item>
-        Current Balance: {{this.truncBalance}}
-      <ion-button slot="end"class = "submit-btn" [routerLink]="'/newgame/'">Restart</ion-button>
-  </ion-item>
+      Simulator {{this.truncCost}} {{this.truncBalance}}
+      <ion-button class = "submit-btn" [routerLink]="'/newgame/'">Restart</ion-button>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +11,7 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Simulator
-
+      	
 
 
       </ion-title>
@@ -21,37 +19,29 @@
   </ion-header>
 
   <ion-content>
-  <ion-card lines = "none" id="view-stocks">
+  <ion-card id="view-stocks">
     <!-- <ion-card-header>
       <ion-card-subtitle>{{stock.dateAdded | date: 'short'}}</ion-card-subtitle>
       <ion-card-title>{{stock.ticker}}</ion-card-title>
     </ion-card-header> -->
-    <ion-list lines = "none">
+    <ion-list>
 
-		<ion-item lines="none" *ngFor="let stock of simlist"  >
+		<ion-item *ngFor="let stock of simlist"  >
 
 
 			<ion-label [routerLink]="'/stock-view/'+stock.ticker">{{stock.ticker}}</ion-label>
 			<ion-label [routerLink]="'/stock-view/'+stock.ticker">${{stock.price}}</ion-label>
-      <ion-button style="border-radius: 20px;
- 	--background: white;
- 	color: #32a852;"id = "sell" (click) = "this.sellStock(stock)">Sell</ion-button>
+      <ion-button (click) = "this.sellStock(stock)">Sell</ion-button>
 		</ion-item>
 	</ion-list>
-
     </ion-card>
-    <div id = "bsal">Total Account Value (USD):</div> <br/><div id = "bal">{{this.truncCost}}</div>
-    <br/>
-    <div id = "bsal">Daily Gain/Loss <div id = "bal"> ${{this.dailyMove}}</div></div>
     </ion-content>
-    </ion-content>
+</ion-content>
 
-
-<div (click) = "hide();clear()" id = "wrappy">
 
 <div (click)="open()" class="stock-search-component-small">
   <div class="stock-search">
-    <input style= "color:black;" [ngModel]="search"
+    <input [ngModel]="search"
  (ngModelChange)="searchFunc($event)" class="search-box" placeholder="Search stock..." title="Search for stock information" />
 
     <div class="icon-search-wrapper">
@@ -66,17 +56,19 @@
       </div>
 
       <div (click)="addStockToSim(stock.symbol)" class="search-result-name">
-        <strong style= "color:black;">{{ stock.symbol }}</strong> |
-        <strong style= "color:black;">{{ stock.name }}</strong> |
-        <strong style= "color:black;">{{ stock.stockExchange }}</strong>
+        <strong>{{ stock.symbol }}</strong> |
+        <strong>{{ stock.name }}</strong> |
+        <strong>{{ stock.stockExchange }}</strong>
       </div>
     </div>
   </div>
 </div>
-</div>
 
-
-<div id = "board" style="position: relative; width: 100%">
-
-  <ion-button color="primary" expand="full" (click)="goToBoard()">View Today's Leaderboard</ion-button>
+<div style="position: relative; bottom: 0px; width: 100%">
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="Enter Ticker" [(ngModel)]="stock.ticker"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button color="primary" expand="full" (click)="goToBoard()">Add to Watchlist</ion-button>
 </div>

@@ -3,15 +3,8 @@ body {
   font-size: 14px;
   color: #444;
   margin: 0;
-
 }
 
-*:not(input){
-  color:white;
-  --ion-background-color:#32a852;
-
-  font-family: "Montserrat" !important;
-}
 table {
   width: 100%;
   border: 2px solid #42b983;
@@ -73,16 +66,6 @@ input {
   outline: none;
 }
 
-#dollar{
-  text-align:left;
-}
-
-#bal{
-  text-align:center;
-  font-size:32px;
-   transform: scale(2, 2);
-}
-
 input[type=search] {
   -webkit-appearance: textfield;
   -webkit-box-sizing: content-box;
@@ -125,26 +108,16 @@ input:-moz-placeholder {
   color: #999;
 }
 
-#boasrd{
-  padding-bottom: 40%;
-}
-
 caption {
   display: none;
 }
 
-.stock-search-component-small:hover{
-  padding-bottom:40%;
-}
-
 .stock-search-component-small {
-  padding-bottom: 20%;
   position: relative;
   max-width: 200px;
   color: #000;
 
   .stock-search {
-    padding-bottom: 80%;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -156,7 +129,6 @@ caption {
     font-size: 20px;
   }
   .search-box {
-
     font-size: 20px;
     width: calc(100% - 30px);
     border: none;
@@ -165,12 +137,7 @@ caption {
       outline: none;
     }
   }
-  ion-content, ion-header{
-
-    --ion-background-color:#32a852;
-}
   .icon-search-wrapper {
-
     cursor: pointer;
     width: 30px;
     display: flex;
@@ -179,21 +146,18 @@ caption {
     color: #000;
   }
   .stock-search-result {
-
-
     position: absolute;
     z-index: 999;
     border: 1px solid #efefef;
     margin-top: 0px;
     background-color: #fff;
     width: 470px;
-    max-height: 200%;
+    max-height: 150px;
     overflow-y: auto;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
   .search-result-item {
-
     display: table;
     table-layout: fixed;
     padding: 0.25em 0.5em;
@@ -206,9 +170,6 @@ caption {
     }
   }
   .search-result-image {
-
-
-
     text-align: left;
     max-width: 100px;
     min-width: 100px;
@@ -221,7 +182,6 @@ caption {
     }
   }
   .search-result-name {
-
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 2em;
