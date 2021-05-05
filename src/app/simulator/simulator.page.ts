@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
 // import {Stock} from '../modal/Stock';
 import { StockService } from '../stock.service';
-import { LocalNotifications } from '@ionic-native/local-notifications/';
+
 
 import { Stock } from '../stock.service';
 import { Observable, Subscription } from 'rxjs';
@@ -22,6 +22,7 @@ export class SimulatorPage implements OnInit {
 	 simlist;
 	 truncBalance;
 	 truncCost;
+	 truncMove;
 	 dailyMove;
 	 simcost;
 	 simBalance;
@@ -146,11 +147,13 @@ await self.simlist.forEach(async function(stock){
 
     });
 
+
   		
 
 
 
   	})
+self.truncMove = self.dailyMove.toFixed(2)
   });
     
 

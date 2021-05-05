@@ -42,12 +42,12 @@
     </ion-card>
     <div id = "bsal">Total Account Value:</div> <br/><div id = "bal">{{this.truncCost}}</div>
     <br/>
-    <div id = "bsal">Daily Gain/Loss:</div> <br/><div id = "bal">{{this.dailyMove}}</div>
+    <div id = "bsal">Daily Gain/Loss:</div> <br/><div id = "bal">{{this.truncMove}}</div>
     </ion-content>
     </ion-content>
 
 
-<div id = "wrappy">
+<div (click) = "hide()" id = "wrappy">
 
 <div (click)="open()" class="stock-search-component-small">
   <div class="stock-search">
@@ -66,7 +66,7 @@
 
       <div (click)="addStockToSim(stock.symbol)" class="search-result-name">
         <strong style="color:black">{{ stock.symbol }}</strong> |
-        <<strong style="color:black">{{ stock.name }}</strong> |
+        <strong style="color:black">{{ stock.name }}</strong> |
         <strong style="color:black">{{ stock.stockExchange }}</strong>
       </div>
     </div>
