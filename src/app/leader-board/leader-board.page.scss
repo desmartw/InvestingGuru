@@ -1,9 +1,9 @@
        
- *{
+ *:not(#t){
         --background: white;
  
         color: #32a852;
-   --ion-background-color:#32a852 !important;
+   --ion-background-color:white !important;
    font-family: "Montserrat" !important;
  }
  

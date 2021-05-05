@@ -6,7 +6,7 @@ body {
 
 }
 
-*:not(input){
+*:not(input, ion-button){
   color:white;
   --ion-background-color:#32a852;
 

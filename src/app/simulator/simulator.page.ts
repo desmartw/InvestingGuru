@@ -96,10 +96,7 @@ search = '';
 
 
     var self = this
-    if(!firebase.auth().currentUser){
-      console.log("here")
-      // self.router.navigate(["/login"])
-    }
+ 
 
 
 

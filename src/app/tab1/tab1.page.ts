@@ -80,6 +80,7 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     var self = this
+      
      firebase.auth().onAuthStateChanged(user => {
   if (!user){
 
